@@ -1,0 +1,21 @@
+name = "alaska"
+compatibility_date = "2023-01-01"
+main = "src/index.tsx"
+account_id = "abcdefghijklmnopqrstuvwxyz"
+workers_dev = true
+
+# [vars]
+# MY_VARIABLE = "production_value"
+
+# [[kv_namespaces]]
+# binding = "MY_KV_NAMESPACE"
+# id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+# [[r2_buckets]]
+# binding = "PIPELINES"
+# bucket_name = "pipelines"
+
+# [[d1_databases]]
+# binding = "DB"
+# database_name = "my-database"
+# database_id = ""
