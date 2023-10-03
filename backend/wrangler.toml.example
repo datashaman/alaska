@@ -1,6 +1,6 @@
 name = "alaska"
 compatibility_date = "2023-01-01"
-main = "src/index.tsx"
+main = "src/index.ts"
 account_id = "abcdefghijklmnopqrstuvwxyz"
 workers_dev = true
 

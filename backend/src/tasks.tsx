@@ -1,10 +1,10 @@
 import { Hono } from 'hono'
-import { TaskForm } from './forms'
 import { negotiate } from './utils'
 
 const data = [
   {
     id: 'hello-world',
+    title: 'Hello World',
     href: '/tasks/hello-world',
     method: 'POST',
     params: [
@@ -16,6 +16,7 @@ const data = [
   },
   {
     id: 'preprocessor',
+    title: 'Preprocessor',
     url: '/tasks/preprocessor',
     method: 'POST',
     params: [
@@ -56,20 +57,6 @@ tasks.get('/:id', function (ctx) {
 
   return ctx.json({
     data: data.find((task) => task.id == id),
-    links: {
-      form: `/tasks/${id}/form`,
-    },
-  })
-})
-
-tasks.get('/:id/form', function (ctx) {
-  const id = ctx.req.param('id')
-  const task = data.find((task) => task.id === id)
-
-  return negotiate(ctx, {
-    html: () => ctx.html(<TaskForm task={task}/>),
-    json: () => ctx.json({
-    })
   })
 })
 
@@ -98,4 +85,6 @@ tasks.post('/:id', async function (ctx) {
   })
 })
 
-export default tasks
+export {
+  tasks,
+}

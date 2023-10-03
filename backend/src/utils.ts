@@ -13,9 +13,10 @@ export const negotiate = function (ctx, provided) {
 
   const accepts = header
     .split(',')
-    .map(function (defn) {
-      const [type, ...argDefs] = defn.split(';')
-      const args = Object.assign(
+    .map(function (definition) {
+      const [type, ...argDefs] = definition.split(';')
+
+      return Object.assign(
         {
           type,
           q: 1.0,
@@ -24,8 +25,6 @@ export const negotiate = function (ctx, provided) {
           argDefs.map((argDef) => argDef.split('='))
         )
       )
-
-      return args
     })
     .sort((a, b) => a.q - b.q)
 

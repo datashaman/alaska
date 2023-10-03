@@ -1,5 +1,4 @@
 import { Hono } from 'hono'
-import { PipelineForm } from './forms'
 import { negotiate } from './utils'
 
 const data = [
@@ -42,35 +41,9 @@ pipelines.get('/:id', function (ctx) {
 
   return ctx.json({
     data: data.find((pipeline) => pipeline.id == id),
-    links: {
-      form: {
-        href: `/pipelines/${id}/form`,
-        type: 'text/html',
-      },
-    },
   })
 })
 
-pipelines.get('/id/form', function (ctx) {
-  const id = ctx.req.param('id')
-  const pipeline = data.find((pipeline) => pipeline.id === id)
-
-  return negotiate(ctx, {
-    html: () => ctx.html(<PipelineForm pipeline={pipeline}/>),
-    json: () => ctx.json({
-    })
-  })
-})
-
-pipelines.post('/:id/form', function (ctx) {
-  const id = ctx.req.param('id')
-  const pipeline = data.find((pipeline) => pipeline.id === id)
-
-  return negotiate(ctx, {
-    html: () => ctx.html('ok'),
-    json: () => ctx.json({
-    })
-  })
-})
-
-export default pipelines
+export {
+  pipelines,
+}

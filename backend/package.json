@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "scripts": {
     "dev": "wrangler dev src/index.ts",
     "deploy": "wrangler deploy --minify src/index.ts"
@@ -8,6 +9,8 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230914.0",
+    "bun-types": "^1.0.3",
+    "typescript": "^5.2.2",
     "wrangler": "^3.9.0"
   }
 }
