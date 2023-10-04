@@ -1,9 +1,9 @@
 <script setup lang="ts">
-  const endpoints = await useCustomFetch('/')
+  const endpoints: object = await useApi('/')
 </script>
 <template>
   <ul>
-    <li v-for="endpoint in endpoints" :key="endpoint.id">
+    <li v-for="endpoint in endpoints.data" :key="endpoint.id">
       <NuxtLink :href="endpoint.href">
         <h2 v-text="endpoint.title" />
       </NuxtLink>
