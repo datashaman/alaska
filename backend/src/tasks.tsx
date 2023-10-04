@@ -1,10 +1,11 @@
 import { Hono } from 'hono'
 import { negotiate } from './utils'
 
-const data = [
+const resources = [
   {
     id: 'hello-world',
     title: 'Hello World',
+    description: 'Hello World task',
     href: '/tasks/hello-world',
     method: 'POST',
     params: [
@@ -46,37 +47,29 @@ const data = [
   },
 ]
 
+const findResource = (ctx) => resources.find((resource) => resource.id === ctx.req.param('id'))
+
 const tasks = new Hono()
 
 tasks.get('/', (ctx) => ctx.json({
-  data: data.map((task) => `/tasks/${task.id}`),
+  data: resources.map((task) => ({
+    id: task.id,
+    title: task.title,
+    description: task.description,
+    href: `/tasks/${task.id}`,
+  }))
 }))
 
-tasks.get('/:id', function (ctx) {
-  const id = ctx.req.param('id')
-
-  return ctx.json({
-    data: data.find((task) => task.id == id),
-  })
-})
+tasks.get('/:id', (ctx) => ctx.json({ data: findTask(ctx) }))
 
 tasks.post('/:id', async function (ctx) {
-  const id = ctx.req.param('id')
-  const task = data.find((task) => task.id === id)
-
+  const task = findTask(ctx)
   const args = await ctx.req.parseBody()
 
-  const url = ctx.req.raw.url
-  const re = new RegExp('^(https?)://([^\/]*)')
-  const match = url.match(re)
-  const baseUrl = `${match[1]}://${match[2]}`
-
-  const response = await fetch(`${baseUrl}/${task.href}`, {
+  const response = await fetch(task.href, {
     method: task.method || 'POST',
     body: JSON.stringify(args)
   })
-
-  console.log(await response.json())
 
   return negotiate(ctx, {
     html: () => ctx.html('ok'),

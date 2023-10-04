@@ -4,6 +4,7 @@ import { negotiate } from './utils'
 const data = [
   {
     id: 'hello-world',
+    title: 'Hello World',
     description: 'Hello World pipeline, basic demo of params and args.',
     params: [
       {
@@ -31,6 +32,7 @@ const pipelines = new Hono()
 pipelines.get('/', (ctx) => ctx.json({
   data: data.map((pipeline) => ({
     id: pipeline.id,
+    title: pipeline.title,
     href: `/pipelines/${pipeline.id}`,
     description: pipeline.description,
   })),

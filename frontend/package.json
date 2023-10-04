@@ -11,6 +11,8 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
+    "bun-types": "^1.0.4-canary.20231003T140149",
+    "defu": "^6.1.2",
     "nuxt": "^3.7.4",
     "vue": "^3.3.4",
     "vue-router": "^4.2.5"
